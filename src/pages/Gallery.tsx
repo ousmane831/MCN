@@ -1,0 +1,99 @@
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import ArtworkCard from "@/components/ArtworkCard";
+import { artworks } from "@/data/artworks";
+import { Button } from "@/components/ui/button";
+
+export default function Gallery() {
+  const [lang, setLang] = useState("fr");
+  const [filter, setFilter] = useState("all");
+
+  const translations = {
+    fr: {
+      title: "Galerie des Œuvres",
+      subtitle: "Explorez notre collection d'art africain",
+      all: "Toutes",
+      mask: "Masques",
+      sculpture: "Sculptures",
+      textile: "Textiles",
+    },
+    en: {
+      title: "Artwork Gallery",
+      subtitle: "Explore our African art collection",
+      all: "All",
+      mask: "Masks",
+      sculpture: "Sculptures",
+      textile: "Textiles",
+    },
+    wo: {
+      title: "Nataal Yi",
+      subtitle: "Xool seen nataal yu Afrig",
+      all: "Lépp",
+      mask: "Ndaxu",
+      sculpture: "Nataal bu naqar",
+      textile: "Dëkk",
+    },
+  };
+
+  const t = translations[lang as keyof typeof translations];
+
+  const categories = [
+    { id: "all", label: t.all },
+    { id: "Masque", label: t.mask },
+    { id: "Sculpture", label: t.sculpture },
+    { id: "Textile", label: t.textile },
+  ];
+
+  const filteredArtworks =
+    filter === "all"
+      ? artworks
+      : artworks.filter((artwork) => artwork.category === filter);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar currentLang={lang} onLanguageChange={setLang} />
+
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-4">
+          {/* Header */}
+          <div className="text-center mb-12 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-gold bg-clip-text text-transparent">
+              {t.title}
+            </h1>
+            <p className="text-lg text-muted-foreground">{t.subtitle}</p>
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {categories.map((category) => (
+              <Button
+                key={category.id}
+                variant={filter === category.id ? "default" : "outline"}
+                onClick={() => setFilter(category.id)}
+                className="transition-all"
+              >
+                {category.label}
+              </Button>
+            ))}
+          </div>
+
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredArtworks.map((artwork) => (
+              <ArtworkCard
+                key={artwork.id}
+                id={artwork.id}
+                image={artwork.image}
+                title={artwork.translations[lang as keyof typeof artwork.translations].title}
+                period={artwork.period}
+                category={artwork.category}
+                hasAudio={artwork.hasAudio}
+                hasAR={artwork.hasAR}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
