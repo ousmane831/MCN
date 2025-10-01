@@ -58,7 +58,7 @@ export default function Hero({ lang }: HeroProps) {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto">
             {t.subtitle}
           </p>
 
