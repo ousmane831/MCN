@@ -65,10 +65,12 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
               </SelectContent>
             </Select>
 
-            <Button variant="default" size="sm" className="gap-2">
-              <QrCode className="w-4 h-4" />
-              {t.scan}
-            </Button>
+            <Link to="/qr-scanner">
+              <Button variant="default" size="sm" className="gap-2">
+                <QrCode className="w-4 h-4" />
+                {t.scan}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,10 +119,12 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
               </SelectContent>
             </Select>
 
-            <Button variant="default" size="sm" className="w-full gap-2">
-              <QrCode className="w-4 h-4" />
-              {t.scan}
-            </Button>
+            <Link to="/qr-scanner" className="w-full">
+              <Button variant="default" size="sm" className="w-full gap-2">
+                <QrCode className="w-4 h-4" />
+                {t.scan}
+              </Button>
+            </Link>
           </div>
         )}
       </div>
