@@ -8,6 +8,7 @@ import Gallery from "./pages/Gallery";
 import RoutesPage from "./pages/Routes";
 import RouteDetail from "./pages/RouteDetail";
 import ArtworkDetail from "./pages/ArtworkDetail";
+import Map from "./pages/Map";
 import QRScanner from "./pages/QRScanner";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/route/:id" element={<RouteDetail />} />
           <Route path="/artwork/:id" element={<ArtworkDetail />} />
+          <Route path="/map" element={<Map />} />
           <Route path="/qr-scanner" element={<QRScanner />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

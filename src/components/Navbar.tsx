@@ -19,9 +19,9 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const translations = {
-    fr: { home: "Accueil", gallery: "Galerie", routes: "Parcours", scan: "Scanner QR" },
-    en: { home: "Home", gallery: "Gallery", routes: "Routes", scan: "Scan QR" },
-    wo: { home: "Kër", gallery: "Nataal", routes: "Yoon", scan: "Scan QR" },
+    fr: { home: "Accueil", gallery: "Galerie", routes: "Parcours", map: "Plan", scan: "Scanner QR" },
+    en: { home: "Home", gallery: "Gallery", routes: "Routes", map: "Map", scan: "Scan QR" },
+    wo: { home: "Kër", gallery: "Nataal", routes: "Yoon", map: "Karte", scan: "Scan QR" },
   };
 
   const t = translations[currentLang as keyof typeof translations];
@@ -50,6 +50,9 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
             </Link>
             <Link to="/routes" className="text-foreground hover:text-primary transition-colors">
               {t.routes}
+            </Link>
+            <Link to="/map" className="text-foreground hover:text-primary transition-colors">
+              {t.map}
             </Link>
             
             {/* Language Selector */}
@@ -105,6 +108,13 @@ export default function Navbar({ currentLang, onLanguageChange }: NavbarProps) {
               onClick={() => setIsOpen(false)}
             >
               {t.routes}
+            </Link>
+            <Link 
+              to="/map" 
+              className="block text-foreground hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {t.map}
             </Link>
             
             <Select value={currentLang} onValueChange={onLanguageChange}>

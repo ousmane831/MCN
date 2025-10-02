@@ -9,6 +9,12 @@ export interface Artwork {
   period: string;
   hasAudio: boolean;
   hasAR: boolean;
+  location: {
+    floor: string;
+    room: string;
+    x: number; // Position on floor plan (0-100%)
+    y: number; // Position on floor plan (0-100%)
+  };
   translations: {
     fr: { title: string; description: string; history: string };
     en: { title: string; description: string; history: string };
@@ -24,6 +30,12 @@ export const artworks: Artwork[] = [
     period: "XVIIe siècle",
     hasAudio: true,
     hasAR: true,
+    location: {
+      floor: "1",
+      room: "Salle des Masques",
+      x: 25,
+      y: 30,
+    },
     translations: {
       fr: {
         title: "Masque Royal Baoulé",
@@ -49,6 +61,12 @@ export const artworks: Artwork[] = [
     period: "XIVe siècle",
     hasAudio: true,
     hasAR: false,
+    location: {
+      floor: "1",
+      room: "Salle des Royaumes",
+      x: 70,
+      y: 35,
+    },
     translations: {
       fr: {
         title: "Guerrier de Bronze du Bénin",
@@ -74,6 +92,12 @@ export const artworks: Artwork[] = [
     period: "XVIIIe siècle",
     hasAudio: true,
     hasAR: false,
+    location: {
+      floor: "2",
+      room: "Salle des Textiles",
+      x: 50,
+      y: 60,
+    },
     translations: {
       fr: {
         title: "Textile Kente du Ghana",
