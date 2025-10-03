@@ -67,53 +67,65 @@ export default function QRScanner() {
 
   const startScanning = async () => {
     setIsScanning(true);
-    
-    try {
-      const html5QrCode = new Html5Qrcode("qr-reader");
-      scannerRef.current = html5QrCode;
-
-      await html5QrCode.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 250 }
-        },
-        (decodedText) => {
-          // Extract artwork ID from URL or use direct ID
-          let scannedId = decodedText;
-          
-          // If it's a full URL, extract the ID
-          if (decodedText.includes('/artwork/')) {
-            scannedId = decodedText.split('/artwork/')[1];
-          }
-          
-          // Check if artwork exists
-          if (artworks.find(a => a.id === scannedId)) {
-            // Mark as scanned and navigate
-            sessionStorage.setItem(`artwork_scanned_${scannedId}`, 'true');
-            html5QrCode.stop();
-            navigate(`/artwork/${scannedId}`);
-          } else {
-            toast({
-              title: lang === "fr" ? "QR Code invalide" : lang === "en" ? "Invalid QR Code" : "QR Code dañu feeñ",
-              description: lang === "fr" ? "Ce QR Code ne correspond à aucune œuvre" : lang === "en" ? "This QR Code doesn't match any artwork" : "QR Code bii amul nataal",
-              variant: "destructive"
-            });
-          }
-        },
-        (errorMessage) => {
-          // Ignore errors during scanning
-        }
-      );
-    } catch (err) {
-      toast({
-        title: lang === "fr" ? "Erreur" : lang === "en" ? "Error" : "Njumte",
-        description: lang === "fr" ? "Impossible d'accéder à la caméra" : lang === "en" ? "Cannot access camera" : "Du gis kamera bi",
-        variant: "destructive"
-      });
-      setIsScanning(false);
-    }
   };
+
+  useEffect(() => {
+    if (isScanning && !scannerRef.current) {
+      // Wait for DOM to be ready
+      setTimeout(async () => {
+        try {
+          const html5QrCode = new Html5Qrcode("qr-reader");
+          scannerRef.current = html5QrCode;
+
+          await html5QrCode.start(
+            { facingMode: "environment" },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 250 }
+            },
+            (decodedText) => {
+              // Extract artwork ID from URL or use direct ID
+              let scannedId = decodedText;
+              
+              // If it's a full URL, extract the ID
+              if (decodedText.includes('/artwork/')) {
+                scannedId = decodedText.split('/artwork/')[1];
+              }
+              
+              // Check if artwork exists
+              if (artworks.find(a => a.id === scannedId)) {
+                // Mark as scanned and navigate
+                sessionStorage.setItem(`artwork_scanned_${scannedId}`, 'true');
+                html5QrCode.stop();
+                navigate(`/artwork/${scannedId}`);
+              } else {
+                toast({
+                  title: lang === "fr" ? "QR Code invalide" : lang === "en" ? "Invalid QR Code" : "QR Code dañu feeñ",
+                  description: lang === "fr" ? "Ce QR Code ne correspond à aucune œuvre" : lang === "en" ? "This QR Code doesn't match any artwork" : "QR Code bii amul nataal",
+                  variant: "destructive"
+                });
+              }
+            },
+            (errorMessage) => {
+              // Ignore errors during scanning
+            }
+          );
+        } catch (err) {
+          console.error("Camera error:", err);
+          toast({
+            title: lang === "fr" ? "Erreur d'accès caméra" : lang === "en" ? "Camera Access Error" : "Njumte kamera",
+            description: lang === "fr" 
+              ? "Veuillez autoriser l'accès à la caméra dans les paramètres de votre navigateur" 
+              : lang === "en"
+              ? "Please allow camera access in your browser settings"
+              : "Jaay na jëfandikoo kamera ci navigateur bi",
+            variant: "destructive"
+          });
+          setIsScanning(false);
+        }
+      }, 100);
+    }
+  }, [isScanning, lang, navigate]);
 
   const stopScanning = () => {
     if (scannerRef.current) {
@@ -127,7 +139,7 @@ export default function QRScanner() {
   useEffect(() => {
     return () => {
       if (scannerRef.current) {
-        scannerRef.current.stop();
+        scannerRef.current.stop().catch(() => {});
       }
     };
   }, []);
