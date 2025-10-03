@@ -54,12 +54,16 @@ export default function QRScanner() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (artworkId && artworks.find(a => a.id === artworkId)) {
+      // Mark that the user scanned the QR code for this artwork
+      sessionStorage.setItem(`artwork_scanned_${artworkId}`, 'true');
       navigate(`/artwork/${artworkId}`);
     }
   };
 
   const handleScanSimulation = () => {
     // Simulation: redirect to first artwork
+    // Mark that the user scanned the QR code
+    sessionStorage.setItem('artwork_scanned_1', 'true');
     navigate("/artwork/1");
   };
 

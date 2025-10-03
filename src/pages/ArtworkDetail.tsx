@@ -1,21 +1,31 @@
-import { useState, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { artworks } from "@/data/artworks";
-import { Volume2, VolumeX, ArrowLeft, QrCode, Eye } from "lucide-react";
+import { Volume2, VolumeX, ArrowLeft, QrCode, Eye, ScanLine } from "lucide-react";
 import QRCode from "react-qr-code";
 
 export default function ArtworkDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [lang, setLang] = useState("fr");
   const [isPlaying, setIsPlaying] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const artwork = artworks.find((a) => a.id === id);
+
+  // Check if user has scanned the QR code for this artwork
+  useEffect(() => {
+    const hasScanned = sessionStorage.getItem(`artwork_scanned_${id}`);
+    if (!hasScanned) {
+      // Redirect to QR scanner if not scanned
+      navigate('/qr-scanner', { replace: true });
+    }
+  }, [id, navigate]);
 
   if (!artwork) {
     return (
@@ -24,6 +34,34 @@ export default function ArtworkDetail() {
           <h1 className="text-2xl font-bold mb-4">Œuvre non trouvée</h1>
           <Link to="/gallery">
             <Button>Retour à la galerie</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Check again after artwork is found
+  const hasScanned = sessionStorage.getItem(`artwork_scanned_${id}`);
+  if (!hasScanned) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <ScanLine className="w-16 h-16 mx-auto mb-6 text-primary animate-pulse" />
+          <h1 className="text-2xl font-bold mb-4">
+            {lang === "fr" ? "QR Code requis" : lang === "en" ? "QR Code Required" : "QR Code laaj na"}
+          </h1>
+          <p className="text-muted-foreground mb-6">
+            {lang === "fr" 
+              ? "Vous devez scanner le QR Code de l'œuvre pour accéder à cette page." 
+              : lang === "en"
+              ? "You must scan the artwork's QR Code to access this page."
+              : "Laaj nga scan QR Code bi ngir gis xët bi."}
+          </p>
+          <Link to="/qr-scanner">
+            <Button className="gap-2">
+              <QrCode className="w-4 h-4" />
+              {lang === "fr" ? "Scanner un QR Code" : lang === "en" ? "Scan QR Code" : "Scan QR Code"}
+            </Button>
           </Link>
         </div>
       </div>
