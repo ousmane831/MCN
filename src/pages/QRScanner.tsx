@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { QrCode, Camera, ArrowLeft } from "lucide-react";
+import { QrCode, Camera, ArrowLeft, X } from "lucide-react";
 import { artworks } from "@/data/artworks";
 import { Link } from "react-router-dom";
+import { Html5Qrcode } from "html5-qrcode";
+import { toast } from "@/hooks/use-toast";
 
 export default function QRScanner() {
   const [lang, setLang] = useState("fr");
   const [artworkId, setArtworkId] = useState("");
+  const [isScanning, setIsScanning] = useState(false);
   const navigate = useNavigate();
+  const scannerRef = useRef<Html5Qrcode | null>(null);
+  const qrReaderRef = useRef<HTMLDivElement>(null);
 
   const translations = {
     fr: {
@@ -60,12 +65,72 @@ export default function QRScanner() {
     }
   };
 
-  const handleScanSimulation = () => {
-    // Simulation: redirect to first artwork
-    // Mark that the user scanned the QR code
-    sessionStorage.setItem('artwork_scanned_1', 'true');
-    navigate("/artwork/1");
+  const startScanning = async () => {
+    setIsScanning(true);
+    
+    try {
+      const html5QrCode = new Html5Qrcode("qr-reader");
+      scannerRef.current = html5QrCode;
+
+      await html5QrCode.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 }
+        },
+        (decodedText) => {
+          // Extract artwork ID from URL or use direct ID
+          let scannedId = decodedText;
+          
+          // If it's a full URL, extract the ID
+          if (decodedText.includes('/artwork/')) {
+            scannedId = decodedText.split('/artwork/')[1];
+          }
+          
+          // Check if artwork exists
+          if (artworks.find(a => a.id === scannedId)) {
+            // Mark as scanned and navigate
+            sessionStorage.setItem(`artwork_scanned_${scannedId}`, 'true');
+            html5QrCode.stop();
+            navigate(`/artwork/${scannedId}`);
+          } else {
+            toast({
+              title: lang === "fr" ? "QR Code invalide" : lang === "en" ? "Invalid QR Code" : "QR Code dañu feeñ",
+              description: lang === "fr" ? "Ce QR Code ne correspond à aucune œuvre" : lang === "en" ? "This QR Code doesn't match any artwork" : "QR Code bii amul nataal",
+              variant: "destructive"
+            });
+          }
+        },
+        (errorMessage) => {
+          // Ignore errors during scanning
+        }
+      );
+    } catch (err) {
+      toast({
+        title: lang === "fr" ? "Erreur" : lang === "en" ? "Error" : "Njumte",
+        description: lang === "fr" ? "Impossible d'accéder à la caméra" : lang === "en" ? "Cannot access camera" : "Du gis kamera bi",
+        variant: "destructive"
+      });
+      setIsScanning(false);
+    }
   };
+
+  const stopScanning = () => {
+    if (scannerRef.current) {
+      scannerRef.current.stop().then(() => {
+        scannerRef.current = null;
+        setIsScanning(false);
+      });
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.stop();
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -93,18 +158,36 @@ export default function QRScanner() {
 
           {/* Scanner Section */}
           <div className="space-y-6">
-            {/* Camera Button */}
-            <Card className="p-8 text-center hover:shadow-warm transition-all">
-              <Camera className="w-16 h-16 mx-auto mb-4 text-primary" />
-              <Button 
-                size="lg" 
-                className="gap-2 shadow-warm"
-                onClick={handleScanSimulation}
-              >
-                <QrCode className="w-5 h-5" />
-                {t.scanButton}
-              </Button>
-            </Card>
+            {/* Camera Scanner */}
+            {isScanning ? (
+              <Card className="p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-semibold text-lg">
+                    {lang === "fr" ? "Scannez le QR Code" : lang === "en" ? "Scan the QR Code" : "Scan QR Code bi"}
+                  </h3>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={stopScanning}
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div id="qr-reader" ref={qrReaderRef} className="w-full"></div>
+              </Card>
+            ) : (
+              <Card className="p-8 text-center hover:shadow-warm transition-all">
+                <Camera className="w-16 h-16 mx-auto mb-4 text-primary" />
+                <Button 
+                  size="lg" 
+                  className="gap-2 shadow-warm"
+                  onClick={startScanning}
+                >
+                  <QrCode className="w-5 h-5" />
+                  {t.scanButton}
+                </Button>
+              </Card>
+            )}
 
             {/* Manual Input */}
             <Card className="p-6">
