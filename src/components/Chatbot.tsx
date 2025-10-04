@@ -5,6 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Message {
   role: "user" | "assistant";
@@ -22,6 +23,7 @@ export default function Chatbot({ lang }: ChatbotProps) {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const placeholders = {
     fr: "Posez votre question...",
@@ -105,16 +107,16 @@ export default function Chatbot({ lang }: ChatbotProps) {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-8 right-8 h-14 w-14 rounded-full shadow-elegant hover:shadow-warm transition-all z-50"
+          className={`fixed ${isMobile ? 'bottom-4 right-4 h-12 w-12' : 'bottom-8 right-8 h-14 w-14'} rounded-full shadow-elegant hover:shadow-warm transition-all z-50`}
           size="icon"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className={isMobile ? "h-5 w-5" : "h-6 w-6"} />
         </Button>
       )}
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-8 right-8 w-96 h-[600px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col z-50 animate-fade-in">
+        <div className={`fixed ${isMobile ? 'inset-4 w-auto h-auto' : 'bottom-8 right-8 w-96 h-[600px]'} bg-card border border-border rounded-2xl shadow-2xl flex flex-col z-50 animate-fade-in`}>
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-gold">
             <div className="flex items-center gap-3">
