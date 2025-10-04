@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { Bot, X, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -37,6 +37,7 @@ export default function Chatbot({ lang }: ChatbotProps) {
     wo: "Salaam aleekum! Maa ngi ci gëm-gëm bu Musée bu Yéenal Ñuul. Naka man a mën a dimbal la?",
   };
 
+  // Message de bienvenue
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
@@ -48,9 +49,10 @@ export default function Chatbot({ lang }: ChatbotProps) {
     }
   }, [isOpen, lang]);
 
+  // Scroll automatique
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
   }, [messages]);
 
@@ -107,10 +109,15 @@ export default function Chatbot({ lang }: ChatbotProps) {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className={`fixed ${isMobile ? 'bottom-4 right-4 h-12 w-12' : 'bottom-8 right-8 h-14 w-14'} rounded-full shadow-elegant hover:shadow-warm transition-all z-50`}
+          className={`fixed ${isMobile ? 'bottom-4 right-4 h-12 w-12' : 'bottom-8 right-8 h-14 w-14'} rounded-full shadow-elegant hover:shadow-warm transition-all z-50 flex items-center justify-center`}
           size="icon"
         >
-          <MessageCircle className={isMobile ? "h-5 w-5" : "h-6 w-6"} />
+          <div className="relative">
+            <Bot className={isMobile ? "h-6 w-6" : "h-7 w-7"} />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              AI
+            </span>
+          </div>
         </Button>
       )}
 
@@ -121,7 +128,7 @@ export default function Chatbot({ lang }: ChatbotProps) {
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-gold">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <MessageCircle className="h-5 w-5 text-primary" />
+                <Bot className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">

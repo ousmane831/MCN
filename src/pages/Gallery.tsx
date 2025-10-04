@@ -16,6 +16,7 @@ export default function Gallery() {
       mask: "Masques",
       sculpture: "Sculptures",
       textile: "Textiles",
+      noArtworks: "Aucune œuvre trouvée.",
     },
     en: {
       title: "Artwork Gallery",
@@ -24,6 +25,7 @@ export default function Gallery() {
       mask: "Masks",
       sculpture: "Sculptures",
       textile: "Textiles",
+      noArtworks: "No artworks found.",
     },
     wo: {
       title: "Nataal Yi",
@@ -32,6 +34,7 @@ export default function Gallery() {
       mask: "Ndaxu",
       sculpture: "Nataal bu naqar",
       textile: "Dëkk",
+      noArtworks: "Lépp nataal yu amul.",
     },
   };
 
@@ -78,20 +81,26 @@ export default function Gallery() {
           </div>
 
           {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredArtworks.map((artwork) => (
-              <ArtworkCard
-                key={artwork.id}
-                id={artwork.id}
-                image={artwork.image}
-                title={artwork.translations[lang as keyof typeof artwork.translations].title}
-                period={artwork.period}
-                category={artwork.category}
-                hasAudio={artwork.hasAudio}
-                hasAR={artwork.hasAR}
-              />
-            ))}
-          </div>
+          {filteredArtworks.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredArtworks.map((artwork) => (
+                <ArtworkCard
+                  key={artwork.id}
+                  id={artwork.id}
+                  image={artwork.image}
+                  title={artwork.translations[lang as keyof typeof artwork.translations].title}
+                  period={artwork.period}
+                  category={artwork.category}
+                  hasAudio={artwork.hasAudio}
+                  hasAR={artwork.hasAR}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground text-lg">
+              {t.noArtworks}
+            </p>
+          )}
         </div>
       </main>
     </div>
