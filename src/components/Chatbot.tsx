@@ -114,7 +114,7 @@ export default function Chatbot({ lang }: ChatbotProps) {
         >
           <div className="relative">
             <Bot className={isMobile ? "h-6 w-6" : "h-7 w-7"} />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-red-400 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
               AI
             </span>
           </div>
