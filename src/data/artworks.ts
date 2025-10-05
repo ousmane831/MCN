@@ -1,6 +1,6 @@
-import maskRoyal from "@/assets/mask-royal.jpg";
-import sculptureBronze from "@/assets/sculpture-bronze.jpg";
-import textilePattern from "@/assets/textile-pattern.jpg";
+import babouche from "@/assets/Babouches_Serigne_Babacar_Sy.jpg";
+import objet_archeo from "@/assets/objets-archogiques-du-Mali.jpg";
+import sabre from "@/assets/Le_sabre_d’ElHadj_Omar_Tall.jpg";
 
 export interface Artwork {
   id: string;
@@ -25,94 +25,94 @@ export interface Artwork {
 export const artworks: Artwork[] = [
   {
     id: "1",
-    image: maskRoyal,
-    category: "Masque",
-    period: "XVIIe siècle",
+    image: babouche,
+    category: "Textile / Mode",
+    period: "XXe siècle",
     hasAudio: true,
     hasAR: true,
     location: {
       floor: "1",
-      room: "Salle des Masques",
+      room: "Salle 1",
       x: 25,
       y: 30,
     },
     translations: {
       fr: {
-        title: "Masque Royal Baoulé",
-        description: "Ce masque royal représente la beauté idéale et la noblesse du peuple Baoulé. Ses traits fins et ses motifs géométriques témoignent d'une maîtrise artistique exceptionnelle.",
-        history: "Les masques Baoulé étaient utilisés lors de cérémonies sacrées et de rituels royaux. Ils incarnent les ancêtres et les esprits protecteurs de la communauté.",
+        title: "Babouches Serigne Babacar Sy",
+        description: "Paire de babouches traditionnelles portées par Serigne Babacar Sy.",
+        history: "Ces babouches symbolisent l'élégance et l'identité culturelle sénégalaise.",
       },
       en: {
-        title: "Baoulé Royal Mask",
-        description: "This royal mask represents the ideal beauty and nobility of the Baoulé people. Its fine features and geometric patterns demonstrate exceptional artistic mastery.",
-        history: "Baoulé masks were used during sacred ceremonies and royal rituals. They embody the ancestors and protective spirits of the community.",
+        title: "Serigne Babacar Sy's Babouches",
+        description: "Traditional slippers worn by Serigne Babacar Sy.",
+        history: "These slippers symbolize elegance and Senegalese cultural identity.",
       },
       wo: {
-        title: "Ndaxu Buur Bu Baoulé",
-        description: "Ndaxu buur bii di rafet bu gëna mag ak dund bu njëkk ci Baoulé. Safaa yi ak motif yi ñu defar di jëfandikoo liggéey bu baax.",
-        history: "Ndaxu yi Baoulé dañuy jëfandikoo ci seen yéenaleem ak seen liggéey bu njëkk. Dañu di mbind seen maam yi ak seen jaan.",
+        title: "Babouches Serigne Babacar Sy",
+        description: "Babouches yu bariy gi ñu am Serigne Babacar Sy.",
+        history: "Babouches bii dafay wone elegance ak culture Senegal.",
       },
     },
   },
   {
     id: "2",
-    image: sculptureBronze,
-    category: "Sculpture",
-    period: "XIVe siècle",
+    image: objet_archeo,
+    category: "Archéologie",
+    period: "Moyen Âge",
     hasAudio: true,
     hasAR: false,
     location: {
       floor: "1",
-      room: "Salle des Royaumes",
+      room: "Salle 2",
       x: 70,
       y: 35,
     },
     translations: {
       fr: {
-        title: "Guerrier de Bronze du Bénin",
-        description: "Cette sculpture représente un guerrier du royaume du Bénin, témoignant de la sophistication des techniques de fonte à la cire perdue.",
-        history: "Les bronzes du Bénin sont parmi les plus grands chefs-d'œuvre de l'art africain. Ils ornaient le palais royal et racontaient l'histoire du royaume.",
+        title: "Objets archéologiques du Mali",
+        description: "Collection d'objets archéologiques trouvés au Mali.",
+        history: "Ces objets témoignent de l'histoire ancienne et des civilisations du Mali.",
       },
       en: {
-        title: "Benin Bronze Warrior",
-        description: "This sculpture represents a warrior from the Benin Kingdom, showcasing the sophistication of lost-wax casting techniques.",
-        history: "Benin bronzes are among the greatest masterpieces of African art. They adorned the royal palace and told the kingdom's history.",
+        title: "Archaeological Objects from Mali",
+        description: "Collection of archaeological objects found in Mali.",
+        history: "These objects reflect the ancient history and civilizations of Mali.",
       },
       wo: {
-        title: "Jigéen Benin Bu Bronze",
-        description: "Nataal bii di jigéen bu boroom réew Benin, di wone ni liggéey bi ñu defar bu gëna mag.",
-        history: "Bronze yi Benin dañuy jot ci nataal bu gëna mag ci Afrig. Dañu dee di jëfandikoo ci palais bu buur bi te wax liggéeyu réew bi.",
+        title: "Objets archéologiques du Mali",
+        description: "Njàmm yi ñu gis ci Mali",
+        history: "Njàmm yi dafay wone tey bu ndaw ak seen suqali yi.",
       },
     },
   },
   {
     id: "3",
-    image: textilePattern,
-    category: "Textile",
-    period: "XVIIIe siècle",
+    image: sabre,
+    category: "Armes / Histoire",
+    period: "XIXe siècle",
     hasAudio: true,
     hasAR: false,
     location: {
       floor: "2",
-      room: "Salle des Textiles",
+      room: "Salle 3",
       x: 50,
       y: 60,
     },
     translations: {
       fr: {
-        title: "Textile Kente du Ghana",
-        description: "Le tissu Kente est un textile traditionnel ghanéen tissé à la main avec des motifs symboliques colorés. Chaque couleur et motif raconte une histoire.",
-        history: "À l'origine réservé à la royauté Ashanti, le Kente est devenu un symbole de fierté et d'identité culturelle africaine dans le monde entier.",
+        title: "Le sabre d’ElHadj Omar Tall",
+        description: "Sabre ayant appartenu au célèbre leader musulman ElHadj Omar Tall.",
+        history: "Il a joué un rôle majeur dans les guerres et l'histoire de l'Afrique de l'Ouest.",
       },
       en: {
-        title: "Kente Textile from Ghana",
-        description: "Kente cloth is a traditional Ghanaian hand-woven textile with colorful symbolic patterns. Each color and pattern tells a story.",
-        history: "Originally reserved for Ashanti royalty, Kente has become a symbol of African pride and cultural identity worldwide.",
+        title: "ElHadj Omar Tall's Saber",
+        description: "Saber belonging to the famous Muslim leader ElHadj Omar Tall.",
+        history: "He played a major role in wars and West African history.",
       },
       wo: {
-        title: "Dëkk Kente Bu Ghana",
-        description: "Dëkk Kente moo ngi jëfandikoo ci Ghana, dañu koy def ak loxo, motif yi am benn xel bu njëkk. Benn benn melokaanu ak motif am na seen xalaat.",
-        history: "Ci tàmbaali, Kente moo ngi jëfandikoo seeneen buur yi Ashanti rekk, waaye leegi dafa jot ci benn nataal bu gëna mag ci Afrig ci àdduna bi.",
+        title: "Le sabre d’ElHadj Omar Tall",
+        description: "Sabre bi am ElHadj Omar Tall, nekkin bu jigéen Muslim.",
+        history: "ElHadj Omar Tall dafay am role ci jàmm ak Africa bi dees West.",
       },
     },
   },
@@ -123,16 +123,16 @@ export const routes = [
     id: "1",
     translations: {
       fr: {
-        title: "Royaumes Africains",
-        description: "Découvrez l'histoire des grands royaumes africains",
+        title: "Route des textiles et objets anciens",
+        description: "Cette route présente des babouches traditionnelles et des objets archéologiques.",
       },
       en: {
-        title: "African Kingdoms",
-        description: "Discover the history of great African kingdoms",
+        title: "Textiles and Ancient Objects Route",
+        description: "This route features traditional babouches and archaeological objects.",
       },
       wo: {
-        title: "Réew Yi Afrig",
-        description: "Xam liggéeyu réew yi mag yi ci Afrig",
+        title: "Route yi textiles ak njàmm yu ndaw",
+        description: "Route bii dafay wone babouches ak njàmm yi ndaw.",
       },
     },
     artworks: ["1", "2"],
@@ -141,16 +141,16 @@ export const routes = [
     id: "2",
     translations: {
       fr: {
-        title: "Art et Spiritualité",
-        description: "L'expression spirituelle à travers l'art",
+        title: "Route des leaders et armes historiques",
+        description: "Cette route met en avant le sabre d’ElHadj Omar Tall et d'autres objets.",
       },
       en: {
-        title: "Art and Spirituality",
-        description: "Spiritual expression through art",
+        title: "Leaders and Historical Weapons Route",
+        description: "This route highlights ElHadj Omar Tall's saber and other historical items.",
       },
       wo: {
-        title: "Nataal ak Liggéey bu Yalla",
-        description: "Liggéey bu Yalla ci nataal",
+        title: "Route yi leaders ak armes historiques",
+        description: "Route bii dafay wone sabre bi ElHadj Omar Tall ak njàmm yi ndaw.",
       },
     },
     artworks: ["1", "3"],

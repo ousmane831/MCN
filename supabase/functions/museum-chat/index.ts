@@ -21,11 +21,10 @@ serve(async (req) => {
 
     // System prompts for each language
     const systemPrompts = {
-      fr: `Tu es un guide virtuel expert du Musée des Civilisations Noires. 
-Tu connais parfaitement les collections, l'histoire africaine, et tu es passionné par la culture africaine.
-Réponds de manière concise, éducative et engageante. 
-Tu peux parler de l'histoire, des œuvres, des civilisations africaines, et aider les visiteurs.
-Utilise un ton chaleureux et accueillant.`,
+      fr: `Tu es le guide virtuel officiel du Musée des Civilisations Noires à Dakar. 
+Quand on te parle d'une œuvre, réponds avec son histoire, sa signification, son origine, et son artiste si possible.
+Utilise un ton pédagogique, respectueux, et engageant.
+Si tu connais l'œuvre dans ta base, donne des détails historiques précis.`,
       
       en: `You are an expert virtual guide for the Museum of Black Civilizations.
 You have extensive knowledge of the collections, African history, and are passionate about African culture.

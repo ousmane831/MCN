@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-museum.jpg";
+import heroImage from "@/assets/picasso.jpg";
 
 interface HeroProps {
   lang: string;
@@ -38,7 +38,7 @@ export default function Hero({ lang }: HeroProps) {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary/90 via-secondary/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/50 via-secondary/70 to-transparent" />
       </div>
 
       {/* Content */}
