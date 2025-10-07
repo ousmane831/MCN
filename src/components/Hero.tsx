@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/picasso.jpg";
+import heroImage from "@/assets/entrer_musee.jpeg";
 
 interface HeroProps {
   lang: string;

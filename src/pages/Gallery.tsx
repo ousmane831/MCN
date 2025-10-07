@@ -13,17 +13,17 @@ export default function Gallery() {
       title: "Galerie des Œuvres",
       subtitle: "Explorez notre collection d'art africain",
       all: "Toutes",
-      mask: "Masques",
-      sculpture: "Sculptures",
-      textile: "Textiles",
+      mask: "Textile / Mode",
+      sculpture: "Archéologie",
+      textile: "Armes / Histoire",
       noArtworks: "Aucune œuvre trouvée.",
     },
     en: {
       title: "Artwork Gallery",
       subtitle: "Explore our African art collection",
       all: "All",
-      mask: "Masks",
-      sculpture: "Sculptures",
+      mask: "Textile / Mode",
+      sculpture: "Archéologie",
       textile: "Textiles",
       noArtworks: "No artworks found.",
     },
@@ -31,7 +31,7 @@ export default function Gallery() {
       title: "Nataal Yi",
       subtitle: "Xool seen nataal yu Afrig",
       all: "Lépp",
-      mask: "Ndaxu",
+      mask: "Textile / Mode",
       sculpture: "Nataal bu naqar",
       textile: "Dëkk",
       noArtworks: "Lépp nataal yu amul.",
@@ -42,9 +42,9 @@ export default function Gallery() {
 
   const categories = [
     { id: "all", label: t.all },
-    { id: "Masque", label: t.mask },
-    { id: "Sculpture", label: t.sculpture },
-    { id: "Textile", label: t.textile },
+    { id: "Textile / Mode", label: t.mask },
+    { id: "Archéologie", label: t.sculpture },
+    { id: "Armes / Histoire", label: t.textile },
   ];
 
   const filteredArtworks =
